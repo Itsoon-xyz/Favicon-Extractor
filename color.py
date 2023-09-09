@@ -1,0 +1,3 @@
+from termcolor import colored
+
+print(colored('black', 'black'), colored('red', 'red'), colored('green', 'green'), colored('yellow', 'yellow'), colored('blue', 'blue'), colored('magenta', 'magenta'), colored('cyan', 'cyan'), colored('white', 'white'), colored('light_grey', 'light_grey'), colored('dark_grey', 'dark_grey'), colored('light_red', 'light_red'), colored('light_green', 'light_green'), colored('light_yellow', 'light_yellow'), colored('light_blue', 'light_blue'), colored('light_magenta', 'light_magenta'), colored('light_cyan', 'light_cyan'))
