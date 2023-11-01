@@ -2,7 +2,9 @@
 
 ### Installation
 
+virtualenv .venv
 source .venv/bin/activate
+yay -S geckodriver
 
 ## To-do
 

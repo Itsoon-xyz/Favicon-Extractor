@@ -16,9 +16,9 @@ headers = {
 
 
 
-# def write_logs(url, e):
-#     with open('log.txt', 'a') as f:
-#             f.write(f"{url} ==> {e}\n")
+def write_logs(url, e):
+    with open('log.txt', 'a') as f:
+            f.write(f"{url} ==> {e}\n")
 
 # def check_url(url):
 #     try:

@@ -1,0 +1,14 @@
+https://amazon.com ==> Message: Unable to locate element: link[rel="icon"]; For documentation on this error, please visit: https://www.selenium.dev/documentation/webdriver/troubleshooting/errors#no-such-element-exception
+Stacktrace:
+RemoteError@chrome://remote/content/shared/RemoteError.sys.mjs:8:8
+WebDriverError@chrome://remote/content/shared/webdriver/Errors.sys.mjs:189:5
+NoSuchElementError@chrome://remote/content/shared/webdriver/Errors.sys.mjs:507:5
+dom.find/</<@chrome://remote/content/shared/DOM.sys.mjs:132:16
+
+https://amocrm.com ==> Message: Unable to locate element: link[rel="icon"]; For documentation on this error, please visit: https://www.selenium.dev/documentation/webdriver/troubleshooting/errors#no-such-element-exception
+Stacktrace:
+RemoteError@chrome://remote/content/shared/RemoteError.sys.mjs:8:8
+WebDriverError@chrome://remote/content/shared/webdriver/Errors.sys.mjs:189:5
+NoSuchElementError@chrome://remote/content/shared/webdriver/Errors.sys.mjs:507:5
+dom.find/</<@chrome://remote/content/shared/DOM.sys.mjs:132:16
+
