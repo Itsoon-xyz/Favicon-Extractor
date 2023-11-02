@@ -1,16 +1,4 @@
-https://armurerie-auxerre.com ==> HTTPSConnectionPool(host='armurerie-auxerre.com', port=443): Max retries exceeded with url: / (Caused by SSLError(SSLCertVerificationError(1, '[SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: self-signed certificate (_ssl.c:1006)')))
-https://armurerie-auxerre.com ==> invalid url
-Failed download error for URL for http://http//bluegrassrivals.com/forum/favicon.ico ==> HTTPConnectionPool(host='http', port=80): Max retries exceeded with url: //bluegrassrivals.com/forum/favicon.ico (Caused by NameResolutionError("<urllib3.connection.HTTPConnection object at 0x7f7179a382d0>: Failed to resolve 'http' ([Errno -2] Name or service not known)"))
-Failed download error for URL for http://bluegrassrivals/forum/favicon.ico ==> HTTPConnectionPool(host='bluegrassrivals', port=80): Max retries exceeded with url: /forum/favicon.ico (Caused by NameResolutionError("<urllib3.connection.HTTPConnection object at 0x7f7179a1bed0>: Failed to resolve 'bluegrassrivals' ([Errno -2] Name or service not known)"))
-Failed download error for URL for http://bluegrassrivals/forum/favicon.ico ==> HTTPConnectionPool(host='bluegrassrivals', port=80): Max retries exceeded with url: /forum/favicon.ico (Caused by NameResolutionError("<urllib3.connection.HTTPConnection object at 0x7f7179a34350>: Failed to resolve 'bluegrassrivals' ([Errno -2] Name or service not known)"))
 https://chinaphonearena.com ==> invalid url
 https://codepen.io ==> invalid url
-https://nimble.com ==> Message: Navigation timed out after 300000 ms
-Stacktrace:
-RemoteError@chrome://remote/content/shared/RemoteError.sys.mjs:8:8
-WebDriverError@chrome://remote/content/shared/webdriver/Errors.sys.mjs:189:5
-TimeoutError@chrome://remote/content/shared/webdriver/Errors.sys.mjs:691:5
-bail@chrome://remote/content/marionette/sync.sys.mjs:211:19
-
 https://tellonym.me ==> invalid url
 https://twitter.com ==> invalid url

@@ -67,7 +67,7 @@ with open('url.json') as f:
 
 for name, url in data["sites"].items():
     try:
-        print(f"{colored('::', 'light_blue')} Start with {url}")
+        print(f"{colored('::', 'light_blue', attrs=['bold'])} Start with {url}")
 
         if check_url(url):
 

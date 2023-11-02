@@ -1,20 +1,35 @@
-import re
-import os.path
-from urllib.parse import urlparse
+import time
+import requests
+from termcolor import colored
 
-urls = ["https://www.nike.com/favicon.ico?v=1",
-        "https://ei.phncdn.com/www-static/favicon.ico?cache=2023103101",
-        "https://ei.rdtcdn.com/www-static/cdn_files/redtube/icons/favicon.ico?v=b712984e78f36d2e122926925b9dc3b1811b066d",
-        "https://static.rocketreach.co/images/favicons/favicon-192x192.png?v=2020120",
-        "https://d3nn82uaxijpm6.cloudfront.net/favicon-16x16.png?v=dLlWydWlG8",
-        "https://s1.wp.com/i/favicon.ico?v=1447321881"]
+urls = ["https://chinaphonearena.com",
+        "https://codepen.io",
+        "https://tellonym.me",
+        "https://twitter.com"]
 
-extensions = []
+
+def write_logs(url, e):
+    with open('log.txt', 'a') as f:
+        f.write(f"{url} ==> {e}\n")
+
+
+def check_url(url):
+    try:
+        try:
+            start_time = time.time()
+            response = requests.head(url, headers=headers, timeout=4)
+            elapsed_time = time.time() - start_time
+        except:
+            response = requests.head(url)
+
+        status_code = response.status_code
+        return status_code < 400
+    except requests.exceptions.RequestException as e:
+        write_logs(url, e)
+        print(
+            f"{colored('  ==>', 'light_red')} CheckUrl error = {url} code = {colored(e, 'light_red', attrs=['underline'])}")
+        return False
+
 
 for url in urls:
-    # file_extension = os.path.splitext(url)[1]
-    # print(file_extension)
-    parsed_url = urlparse(url)
-    path = parsed_url.path
-    file_extension = os.path.splitext(path)[1]
-    print(file_extension)
+    check_url(url)
