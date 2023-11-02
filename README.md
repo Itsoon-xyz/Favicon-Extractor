@@ -8,10 +8,11 @@ yay -S geckodriver
 
 ## To-do
 
-- ~~"invalid url" error~~ probably fixed
-  https://twitter.com False
-  https://tellonym.me False
-  https://codepen.io False
-  https://chinaphonearena.com
-- ~~to much time to checkUrl~~ fix
-- "No connection adapters were found for 'data:,'" error (time sleep)
+- ~~"invalid url" error~~ fixed
+  - https://chinaphonearena.com ==> invalid url cloudfare protection
+  - https://codepen.io ==> invalid url just not working
+  - https://tellonym.me ==> invalid url
+  -
+- [] ~~to much time to checkUrl~~ fix
+- [] to much time to https://caringbridge.org
+- [x] ~~"No connection adapters were found for 'data:,'"~~
