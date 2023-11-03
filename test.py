@@ -25,37 +25,29 @@ headers = {
 }
 
 
-def check_url(url):
-    try:
-        response = requests.head(url, headers=headers)
-        # response = requests.get(url, headers=headers)
-        # try:
-        #     start_time = time.time()
-        #     response = requests.head(url, headers=headers, timeout=4)
-        #     elapsed_time = time.time() - start_time
-        # except:
-        #     response = requests.head(url)
+# def check_url(url):
+#     try:
+#         response = requests.head(url, headers=headers)
+#         # response = requests.get(url, headers=headers)
+#         # try:
+#         #     start_time = time.time()
+#         #     response = requests.head(url, headers=headers, timeout=4)
+#         #     elapsed_time = time.time() - start_time
+#         # except:
+#         #     response = requests.head(url)
 
-        status_code = response.status_code
-        print(response)
-        if status_code < 400:
-            return True
-        elif status_code == 403:
-            driver.get(url)
-            try:
-                time.sleep(5)
-                body = driver.find_element(By.TAG_NAME, "headert")
-                # body = driver.find_element(By.TAG_NAME, "body")
-                print(body.get_attribute('outerHTML'))
-            except:
-                print(body, "n'a pas été trouvé, le site peut avoir des problèmes.")
-        else:
-            return False
-    except requests.exceptions.RequestException as e:
-        write_logs(url, e)
-        print(
-            f"{colored('  ==>', 'light_red')} CheckUrl error = {url} code = {colored(e, 'light_red', attrs=['underline'])}")
-        return False
+#         status_code = response.status_code
+#         print(response)
+#         if status_code < 400:
+#             return True
+#         elif status_code == 403:
+#             driver.get(url)
+#             time.sleep(5)
+#             if "404" not in driver.title:
+#     except Exception as e:
+#         write_logs(url, e)
+#         print(f"{colored('  ==>', 'light_red')} CheckUrl error = {url} code = {colored(e, 'light_red', attrs=['underline'])}")
+#         return False
 
 
 for url in urls:
