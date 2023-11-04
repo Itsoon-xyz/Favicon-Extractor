@@ -1,6 +1,6 @@
 import time
+import json
 import requests
-import urllib.request
 from termcolor import colored
 from selenium import webdriver
 from selenium.webdriver.common.by import By
@@ -9,10 +9,10 @@ from selenium.webdriver.support import expected_conditions as EC
 
 driver = webdriver.Firefox()
 
-urls = ["https://chinaphonearena.com",
-        "https://codepen.io",
-        "https://tellonym.me",
-        "https://twitter.com"]
+# urls = ["https://chinaphonearena.com",
+#         "https://codepen.io",
+#         "https://tellonym.me",
+#         "https://twitter.com"]
 
 
 def write_logs(url, e):
@@ -25,32 +25,36 @@ headers = {
 }
 
 
-# def check_url(url):
-#     try:
-#         response = requests.head(url, headers=headers)
-#         # response = requests.get(url, headers=headers)
-#         # try:
-#         #     start_time = time.time()
-#         #     response = requests.head(url, headers=headers, timeout=4)
-#         #     elapsed_time = time.time() - start_time
-#         # except:
-#         #     response = requests.head(url)
+def check_url(url):
+    try:
+        response = requests.head(url, headers=headers)
+        print(response)
+        status_code = response.status_code
+        if status_code <= 400:
+            return True
+        elif status_code == 403:
+            driver.get(url)
+            if "404" not in driver.title:
+                return True
+        else:
+            response = requests.head(url)
+            if response.status_code <= 400:
+                return True
 
-#         status_code = response.status_code
-#         print(response)
-#         if status_code < 400:
-#             return True
-#         elif status_code == 403:
-#             driver.get(url)
-#             time.sleep(5)
-#             if "404" not in driver.title:
-#     except Exception as e:
-#         write_logs(url, e)
-#         print(f"{colored('  ==>', 'light_red')} CheckUrl error = {url} code = {colored(e, 'light_red', attrs=['underline'])}")
-#         return False
+    except Exception as e:
+        write_logs(url, e)
+        return False
 
 
-for url in urls:
-    print(url, check_url(url))
+with open('url.json') as f:
+    data = json.load(f)
+
+for name, url in data["sites"].items():
+    # print(url, check_url(url))
+    link = check_url(url)
+    if link == True:
+        print(url, colored(True, "green"))
+    elif link == False:
+        print(url, colored(False, "red"))
 
 driver.quit()
