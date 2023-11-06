@@ -127,7 +127,7 @@ for name, url in data["sites"].items():
             for link_tag in link_tags:
                 rels = link_tag.get_attribute('rel').split()
                 rels = [rel.lower() for rel in rels]
-                print(rels)  # ['shortcut', 'icon']
+                # print(rels)  # ['shortcut', 'icon']
                 for icon_type in icon_types:
                     if all(rel in rels for rel in icon_type):
                         icon_url = link_tag.get_attribute('href')
