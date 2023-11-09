@@ -106,7 +106,7 @@ for name, url in data["sites"].items():
             link_tags = getUrl(url)
 
             if link_tags == []:
-                print(colored("  ==> retry with search url", "red"))
+                print(colored("  ==> retry with url search", "red"))
                 if check_url(url + "/favicon.ico"):
                     counter = 0
                     download(url + "/favicon.ico", name)
@@ -118,7 +118,7 @@ for name, url in data["sites"].items():
                         f"{colored('  ==>', 'light_red')} Error for URL = {url} code = {colored('the site does not contain a favicon, or there is a problem in the script', 'light_red', attrs=['underline'])}")
 
             icon_types = [['icon'], ['shortcut', 'icon'], [
-                'apple-touch-icon', 'apple-touch-icon-precomposed'], ['fluid-icon', 'mask-icon']]
+                'apple-touch-icon', 'apple-touch-icon-precomposed'], ['fluid-icon', 'mask-icon'], ['msapplication-TileImage']]
             counter = 0
 
             # print([tag.get_attribute('outerHTML')
