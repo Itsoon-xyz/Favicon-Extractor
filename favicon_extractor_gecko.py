@@ -3,14 +3,17 @@ import time
 import json
 import requests
 from termcolor import colored
-from selenium import webdriver
 from urllib.parse import urlparse
+from selenium import webdriver
 from selenium.webdriver.common.by import By
+from selenium.webdriver.firefox.options import Options
 from selenium.webdriver.support.wait import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
+import threading
 
-
-driver = webdriver.Firefox()
+options = Options()
+options.add_argument("--headless")
+driver = webdriver.Firefox(options=options)
 
 headers = {
     "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/58.0.3029.110 Safari/537.36"
@@ -44,7 +47,7 @@ def check_url(url):
         return False
 
 
-def download(url, name):
+def download(url, name, counter):
     try:
         try:
             start_time = time.time()
@@ -71,13 +74,36 @@ def download(url, name):
             f"{colored('  ==>', 'light_red')} Failed download error for URL = {url} code = {colored(e, 'light_red', attrs=['underline'])}")
 
 
+def download_threaded(name, url, counter):
+    try:
+        download(url, name, counter)
+    except Exception as e:
+        write_logs(url, e)
+        print(
+            f"{colored('  ==>', 'light_red')} Error in thread for URL = {url} code = {colored(e, 'light_red', attrs=['underline'])}")
+
+
+print(
+    """
+███████╗  █████╗  ██╗   ██╗ ██╗  ██████╗  ██████╗  ███╗   ██╗
+██╔════╝ ██╔══██╗ ██║   ██║ ██║ ██╔════╝ ██╔═══██╗ ████╗  ██║
+█████╗   ███████║ ██║   ██║ ██║ ██║      ██║   ██║ ██╔██╗ ██║
+██╔══╝   ██╔══██║ ╚██╗ ██╔╝ ██║ ██║      ██║   ██║ ██║╚██╗██║
+██║      ██║  ██║  ╚████╔╝  ██║ ╚██████╗ ╚██████╔╝ ██║ ╚████║
+╚═╝      ╚═╝  ╚═╝   ╚═══╝   ╚═╝  ╚═════╝  ╚═════╝  ╚═╝  ╚═══╝
+                                                       
+""", "01000110 01100001 01110110 01101001 01100011 01101111 01101110 ")
+print("\n")
+
 with open('url.json') as f:
     data = json.load(f)
 
+threads = []
+
 for name, url in data["sites"].items():
     try:
-        print(
-            f"{colored('::', 'light_blue', attrs=['bold'])} Start with {url}")
+        # print(
+        # f"{colored('::', 'light_blue', attrs=['bold'])} Start with {url}")
 
         if check_url(url):
 
@@ -106,10 +132,10 @@ for name, url in data["sites"].items():
             link_tags = getUrl(url)
 
             if link_tags == []:
-                print(colored("  ==> retry with url search", "red"))
+                # print(colored("  ==> retry with url search", "red"))
                 if check_url(url + "/favicon.ico"):
                     counter = 0
-                    download(url + "/favicon.ico", name)
+                    download(url + "/favicon.ico", name, counter)
                     continue
                 else:
                     write_logs(
@@ -121,17 +147,16 @@ for name, url in data["sites"].items():
                 'apple-touch-icon', 'apple-touch-icon-precomposed'], ['fluid-icon', 'mask-icon'], ['msapplication-TileImage']]
             counter = 0
 
-            # print([tag.get_attribute('outerHTML')
-            #       for tag in link_tags])  # to see the tags
-
             for link_tag in link_tags:
                 rels = link_tag.get_attribute('rel').split()
                 rels = [rel.lower() for rel in rels]
-                # print(rels)  # ['shortcut', 'icon']
                 for icon_type in icon_types:
                     if all(rel in rels for rel in icon_type):
                         icon_url = link_tag.get_attribute('href')
-                        download(icon_url, name)
+                        thread = threading.Thread(
+                            target=download_threaded, args=(name, icon_url, counter))
+                        threads.append(thread)
+                        thread.start()
                         counter += 1
                         break
 
@@ -144,6 +169,9 @@ for name, url in data["sites"].items():
         write_logs(url, e)
         print(
             f"{colored('  ==>', 'light_red')} Error for URL = {url} code = {colored(e, 'light_red', attrs=['underline'])}")
+
+for thread in threads:
+    thread.join()
 
 print(colored('Successful download', 'green'),
       ' look at log.txt to see errors')
